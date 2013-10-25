@@ -17,8 +17,13 @@ trait ServiceConfigProviderTrait
      */
     public function getServiceConfig()
     {
+        $configFiles = glob(
+            $this->getDir() . '/' . $this->relativeModuleDir . 'config/service/service.config{,.*}.php',
+            GLOB_BRACE
+        );
+
         $config = array();
-        foreach (glob($this->getDir() . '/config/service/service.config{,.*}.php', GLOB_BRACE) as $configFile) {
+        foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
         }
         return $config;

@@ -16,8 +16,13 @@ trait ConfigProviderTrait
      */
     public function getConfig()
     {
+        $configFiles = glob(
+            $this->getDir() . '/' . $this->relativeModuleDir . 'config/module.config{,.*}.php',
+            GLOB_BRACE
+        );
+
         $config = array();
-        foreach (glob($this->getDir() . '/config/module.config{,.*}.php', GLOB_BRACE) as $configFile) {
+        foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
         }
         return $config;

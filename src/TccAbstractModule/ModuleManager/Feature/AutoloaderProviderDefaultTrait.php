@@ -15,11 +15,12 @@ trait AutoloaderProviderDefaultTrait {
     {
         return array(
             'Zend\Loader\ClassMapAutoloader' => array(
-                $this->getDir() . '/autoload_classmap.php',
+                $this->getDir() . '/' . $this->relativeModuleDir . 'autoload_classmap.php',
             ),
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
-                    $this->getNamespace() => $this->getDir() . '/src/' . $this->getNamespace(),
+                    $this->getNamespace() =>
+                        $this->getDir() . '/' . $this->relativeModuleDir . 'src/' . $this->getNamespace(),
                 ),
             ),
         );

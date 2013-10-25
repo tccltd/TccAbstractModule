@@ -17,8 +17,13 @@ trait ControllerConfigProviderTrait
      */
     public function getControllerConfig()
     {
+        $configFiles = glob(
+            $this->getDir() . '/' . $this->relativeModuleDir . 'config/service/controller.config{,.*}.php',
+            GLOB_BRACE
+        );
+
         $config = array();
-        foreach (glob($this->getDir() . '/config/service/controller.config{,.*}.php', GLOB_BRACE) as $configFile) {
+        foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
         }
         return $config;

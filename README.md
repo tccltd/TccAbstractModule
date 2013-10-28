@@ -10,7 +10,13 @@ Simply add **tccltd/tcc-abstract-module** to your composer.json.
 
 Usage
 -----
-When creating a new module, extend **TccAbstractModule\Module\AbstractModule** in your Module.php.  For simpler modules, you may well find that this is all you need:
+When creating a new module, extend **TccAbstractModule\Module\AbstractModule** in your Module.php.
+
+- - - - - - - - - -
+**PHP 5.3 NOTE**: If you are _not_ using PHP 5.4 then you will need to extend **TccAbstractModuleNoTraits** instead of **TccAbstractModule**. The functionality provided is identical.
+- - - - - - - - - - 
+
+For simpler modules, you may well find that this is all you need:
 
     namespace MyModule;
 
@@ -19,7 +25,6 @@ When creating a new module, extend **TccAbstractModule\Module\AbstractModule** i
     class Module extends AbstractModule
     {
     }
-
 
 The abstract module configures the following behaviour automatically:
 
@@ -48,6 +53,14 @@ A typical file structure (focusing on the aspects related to this module) might 
       autoload_classmap.php  
       Module.php  
 
+
 Overriding
 ----------
 Should you wish to modify the behaviour of the AbstractModule, you can do so by either overriding in your individual Module.php files, or you can extend the entire module and create your own AbstractModule.  If you have a suggestion that might benefit all users of this module, please do feel free to suggest it, of course!
+
+
+Traits
+------
+TccAbstractModule is composed of traits. This means that you can, should you wish, cherry-pick the functionality that you would like to use. In this instance you would _not_ override AbstractModule. Instead, you would _use_ the relevant traits within your own Module class. Note that you will need to _use_ _ClassDirTrait_ in order to use any of the other traits, and _ClassNamespaceTrait_ in order to use _AutoloaderProviderDefaultTrait_.
+
+It is anticipated that most users will _not_ need to cherry-pick.

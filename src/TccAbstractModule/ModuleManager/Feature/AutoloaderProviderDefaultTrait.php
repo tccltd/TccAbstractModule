@@ -13,16 +13,24 @@ trait AutoloaderProviderDefaultTrait {
      */
     public function getAutoloaderConfig()
     {
-        return array(
-            'Zend\Loader\ClassMapAutoloader' => array(
-                $this->getDir() . '/' . $this->relativeModuleDir . 'autoload_classmap.php',
-            ),
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    $this->getNamespace() =>
-                        $this->getDir() . '/' . $this->relativeModuleDir . 'src/' . $this->getNamespace(),
-                ),
+        $autoloaderArray = array();
+
+        // If this module has a defined classmap, add a classmap autoloader.
+        $classmapPath = $this->getDir() . '/' . $this->relativeModuleDir . 'autoload_classmap.php';
+        if (file_exists($classmapPath)) {
+            $autoloaderArray['Zend\Loader\ClassMapAutoloader'] = array(
+                $classmapPath
+            );
+        }
+
+        // Fallback to a PSR-0 autoloader.
+        $autoloaderArray['Zend\Loader\StandardAutoloader'] = array(
+            'namespaces' => array(
+                $this->getNamespace() =>
+                    $this->getDir() . '/' . $this->relativeModuleDir . 'src/' . $this->getNamespace(),
             ),
         );
+
+        return $autoloaderArray;
     }
 }

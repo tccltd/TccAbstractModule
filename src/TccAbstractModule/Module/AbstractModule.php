@@ -23,18 +23,17 @@ abstract class AbstractModule implements
     use \TccAbstractModule\ModuleManager\Feature\ServiceConfigProviderTrait;
     use \TccAbstractModule\ModuleManager\Feature\ViewHelperConfigProviderTrait;
 
-
     /**
      * In order to provide functionality, we need to know the root directory of the Module that is extending this
      * AbstractModule. Usually, this is straightforward as the Module.php of the extending Module is stored in this
      * root directory. This is not always the case, however. For example, a developer may wish to adhere strictly to
-     * PSR-0, storing Module.php in (for example) ./my-module/src/MyModule/Module.php and using a placeholder file at
+     * PSR-0, storing Module.php in (for example) ./src/MyModule/Module.php and using a placeholder file at
      * ./Module.php that includes the PSR-0 compliant version of the file.
      *
      * Unfortunately, this makes it very hard to get the module root directory. This variable allows the developer to
      * specify the relative location of the Module's root directory in relation to the Module.php file.
      *
-     * By default, we assume that Module.php is IN the root directory and do not set a relative path.
+     * By default, we assume that Module.php is IN the module's base directory and do not set a relative path.
      *
      * @var string
      */

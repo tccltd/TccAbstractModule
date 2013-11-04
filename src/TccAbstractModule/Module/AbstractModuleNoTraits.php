@@ -75,6 +75,10 @@ abstract class AbstractModuleNoTraits implements
             GLOB_BRACE
         );
 
+        // glob() returns false on error. On some systems, glob() will return false (instead of an empty array) if no
+        // files are found. Treat both in the same way - no config will be loaded.
+        $configFiles = $configFiles ?: array();
+
         $config = array();
         foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
@@ -94,6 +98,10 @@ abstract class AbstractModuleNoTraits implements
             $this->getDir() . '/' . $this->relativeModuleDir . 'config/service/controller.config{,.*}.php',
             GLOB_BRACE
         );
+
+        // glob() returns false on error. On some systems, glob() will return false (instead of an empty array) if no
+        // files are found. Treat both in the same way - no config will be loaded.
+        $configFiles = $configFiles ?: array();
 
         $config = array();
         foreach ($configFiles as $configFile) {
@@ -115,6 +123,10 @@ abstract class AbstractModuleNoTraits implements
             GLOB_BRACE
         );
 
+        // glob() returns false on error. On some systems, glob() will return false (instead of an empty array) if no
+        // files are found. Treat both in the same way - no config will be loaded.
+        $configFiles = $configFiles ?: array();
+
         $config = array();
         foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
@@ -134,6 +146,10 @@ abstract class AbstractModuleNoTraits implements
             $this->getDir() . '/' . $this->relativeModuleDir . 'config/service/viewhelper.config{,.*}.php',
             GLOB_BRACE
         );
+
+        // glob() returns false on error. On some systems, glob() will return false (instead of an empty array) if no
+        // files are found. Treat both in the same way - no config will be loaded.
+        $configFiles = $configFiles ?: array();
 
         $config = array();
         foreach ($configFiles as $configFile) {

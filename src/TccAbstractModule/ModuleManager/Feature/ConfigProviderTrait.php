@@ -21,6 +21,10 @@ trait ConfigProviderTrait
             GLOB_BRACE
         );
 
+        // glob() returns false on error. On some systems, glob() will return false (instead of an empty array) if no
+        // files are found. Treat both in the same way - no config will be loaded.
+        $configFiles = $configFiles ?: array();
+
         $config = array();
         foreach ($configFiles as $configFile) {
             $config = ArrayUtils::merge($config, include $configFile);
